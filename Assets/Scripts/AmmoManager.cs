@@ -6,6 +6,7 @@ public class AmmoManager : MonoBehaviour
 {
 
     [SerializeField] GameObject[] ammos = new GameObject[1];
+    [SerializeField] Transform ammoSpawn;
     // Start is called before the first frame update
     void Start()
     {
@@ -25,9 +26,9 @@ public class AmmoManager : MonoBehaviour
                 ammo.SetActive(true);
                 Rigidbody rigidBody = ammo.GetComponent<Rigidbody>();
                 rigidBody.velocity = Vector3.zero;
-                ammo.transform.position = new Vector3(transform.position.x + 5, transform.position.y + 5, transform.position.z + 5);
-                Vector3 rotation = ammo.transform.rotation.eulerAngles;
-                ammo.transform.rotation = Quaternion.Euler(rotation.x, transform.eulerAngles.y, rotation.z);
+                ammo.transform.position = ammoSpawn.position;
+                Vector3 rotation = transform.rotation.eulerAngles;
+                ammo.transform.rotation = Quaternion.Euler(rotation.x, 0, rotation.z);
                 rigidBody.AddForce(transform.forward * 30, ForceMode.Impulse);
             }
         }
