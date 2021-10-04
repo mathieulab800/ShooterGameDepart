@@ -5,6 +5,7 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour
 {
     // Start is called before the first frame update
+    [SerializeField] private Transform camera;
     [SerializeField] private CharacterController characterController;
     [SerializeField] private float speed = 5f;
 
@@ -48,14 +49,15 @@ public class PlayerMovement : MonoBehaviour
         if (direction.magnitude >= 0.1f)
         {
             //l'angle que l'on vise avec nos contrôles.  Je pense que ça doit vous dire quelque chose.
-            float targetAngle = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg;
+            //float targetAngle = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg;
+            float targetAngle = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg + camera.eulerAngles.y;
 
             //SmoothDampAngle permet de faire un déplacement progressif entre l'angle actuel et l'angle visé.
             //Sans cette ligne de code, le pivot du personnage sera brutal.
-            float angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetAngle, ref rotationSpeed, rotationTime);
+            //float angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetAngle, ref rotationSpeed, rotationTime);
 
             //Quaternion.Euler permet de gérer correctement les rotaions en degrés malgré que l'on ai affaire à un quaternion.
-            transform.rotation = Quaternion.Euler(0f, angle, 0f);
+            transform.rotation = Quaternion.Euler(0f, targetAngle, 0f);
 
             //Si vous voulez que le personnage diminue de vitesse en saut.
             //Si on voudrait que le saut ne change pas de direction: garder le même vecteur en x et z qaund le joueur n'est pas grounded
@@ -64,8 +66,11 @@ public class PlayerMovement : MonoBehaviour
             float tempSpeed = speed;
             if (!characterController.isGrounded) tempSpeed /= 2;
 
-            direction.x = direction.x * tempSpeed * Time.deltaTime;
-            direction.z = direction.z * tempSpeed * Time.deltaTime;
+            //direction.x = direction.x * tempSpeed * Time.deltaTime;
+            //direction.z = direction.z * tempSpeed * Time.deltaTime;
+            Vector3 moveDirection = (Quaternion.Euler(0f, targetAngle, 0f) * Vector3.forward).normalized;
+            direction.x = moveDirection.x * tempSpeed * Time.deltaTime;
+            direction.z = moveDirection.z * tempSpeed * Time.deltaTime;
         }
         else
         {
