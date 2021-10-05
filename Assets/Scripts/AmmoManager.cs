@@ -4,15 +4,21 @@ using UnityEngine;
 
 public class AmmoManager : MonoBehaviour
 {
-
-    [SerializeField] GameObject[] ammos = new GameObject[1];
+    [SerializeField] GameObject ammoPrefab;
+    [SerializeField] int maxAmmos;
+    [SerializeField] int ammoSpeed;
     [SerializeField] Transform ammoSpawn;
+    private GameObject[] ammos;
+
     // Start is called before the first frame update
-    void Start()
+    void Start() 
     {
-        foreach(GameObject ammo in ammos)
+        ammos = new GameObject[maxAmmos];
+        for (int i = 0; i < ammos.Length; i++)
         {
-            ammo.SetActive(false);
+            GameObject ammo = Instantiate(ammoPrefab, new Vector3(0, 0, 0), Quaternion.identity);
+            ammos.SetValue(ammo, i);
+            ammos[i].SetActive(false);
         }
     }
 
@@ -21,15 +27,25 @@ public class AmmoManager : MonoBehaviour
     {
         if (Input.GetButtonDown("Fire1"))
         {
+            GameObject ammoToShoot = null;
+            bool ammoSelected = false;
+            //Get first inactive ammo
             foreach(GameObject ammo in ammos)
             {
-                ammo.SetActive(true);
-                Rigidbody rigidBody = ammo.GetComponent<Rigidbody>();
+                if(!ammo.activeSelf && !ammoSelected)
+                {
+                    ammoToShoot = ammo;
+                }
+            }
+            if(ammoToShoot != null)
+            {
+                ammoToShoot.SetActive(true);
+                Rigidbody rigidBody = ammoToShoot.GetComponent<Rigidbody>();
                 rigidBody.velocity = Vector3.zero;
-                ammo.transform.position = ammoSpawn.position;
+                ammoToShoot.transform.position = ammoSpawn.position;
                 Vector3 rotation = transform.rotation.eulerAngles;
-                ammo.transform.rotation = Quaternion.Euler(rotation.x, 0, rotation.z);
-                rigidBody.AddForce(transform.forward * 30, ForceMode.Impulse);
+                ammoToShoot.transform.rotation = Quaternion.Euler(rotation.x, 0, rotation.z);
+                rigidBody.AddForce(transform.forward * ammoSpeed, ForceMode.Impulse);
             }
         }
     }
