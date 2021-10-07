@@ -8,9 +8,13 @@ public class LifeManager : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        if(collision.gameObject.tag == "Alien")
+        if(collision.gameObject.tag == "Player")
         {
+            print("collision Avec player");
             gameManager.LoseLife();
+        } else
+        {
+            print("collision ???");
         }
     }
 }

@@ -13,7 +13,7 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         uiTexts[0].text = fixedLifeText + lives.ToString();
-        uiTexts[3].text = "";
+        uiTexts[1].text = "";
     }
 
     // Update is called once per frame
