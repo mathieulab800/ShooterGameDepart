@@ -20,9 +20,33 @@ public class LifeCollisionManager : MonoBehaviour
         
     }
 
-    private void OnTriggerEnter(Collider other)
+    //Il va gérer a la fois les collision et les trigger
+    private void OnCollisionEnter(Collision collision)
     {
         foreach(string tag in loseLifeTags)
+        {
+            if (collision.gameObject.tag == tag)
+            {
+                --nbLife;
+                if (nbLife <= 0)
+                {
+                    gameObject.SetActive(false);
+                }
+            }
+        }
+        foreach (string tag in oneShotTags)
+        {
+            if (collision.gameObject.tag == tag)
+            {
+
+                gameObject.SetActive(false);
+            }
+        }
+    }
+    //Je met trigger parce que la colision avec le joueur est impossible ;(
+    private void OnTriggerEnter(Collider other)
+    {
+        foreach (string tag in loseLifeTags)
         {
             if (other.gameObject.tag == tag)
             {
@@ -37,6 +61,8 @@ public class LifeCollisionManager : MonoBehaviour
         {
             if (other.gameObject.tag == tag)
             {
+                print(tag);
+
                 gameObject.SetActive(false);
             }
         }
