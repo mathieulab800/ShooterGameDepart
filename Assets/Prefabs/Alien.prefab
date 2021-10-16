@@ -1134,6 +1134,9 @@ GameObject:
   m_Component:
   - component: {fileID: 4558308299672658}
   - component: {fileID: 8880293696115802431}
+  - component: {fileID: -4923319332932332928}
+  - component: {fileID: -6072883278322112867}
+  - component: {fileID: 4821197994622903651}
   m_Layer: 0
   m_Name: Alien
   m_TagString: Untagged
@@ -1171,6 +1174,58 @@ CapsuleCollider:
   m_Height: 8
   m_Direction: 1
   m_Center: {x: 0.25, y: 3.75, z: -0.5}
+--- !u!195 &-4923319332932332928
+NavMeshAgent:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1326983052875474}
+  m_Enabled: 1
+  m_AgentTypeID: 0
+  m_Radius: 4
+  m_Speed: 10
+  m_Acceleration: 30
+  avoidancePriority: 50
+  m_AngularSpeed: 250
+  m_StoppingDistance: 0
+  m_AutoTraverseOffMeshLink: 1
+  m_AutoBraking: 1
+  m_AutoRepath: 1
+  m_Height: 8
+  m_BaseOffset: 1
+  m_WalkableMask: 4294967295
+  m_ObstacleAvoidanceType: 4
+--- !u!114 &-6072883278322112867
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1326983052875474}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 69111717589b1d540a4c492f6939dd98, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  target: {fileID: 0}
+--- !u!114 &4821197994622903651
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1326983052875474}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b288ebc34fba4274c968fdb666572d42, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  oneShotTags:
+  - Player
+  loseLifeTags:
+  - Ammo
+  nbLife: 1
 --- !u!1 &1344034646348482
 GameObject:
   m_ObjectHideFlags: 0

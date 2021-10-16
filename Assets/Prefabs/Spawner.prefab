@@ -12,6 +12,8 @@ GameObject:
   - component: {fileID: 7795690005808854479}
   - component: {fileID: 7795690005808854464}
   - component: {fileID: 7795690005808854465}
+  - component: {fileID: 6644231784515000695}
+  - component: {fileID: -7733537773067099323}
   m_Layer: 0
   m_Name: Spawner
   m_TagString: Untagged
@@ -95,3 +97,31 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &6644231784515000695
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7795690005808854466}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b288ebc34fba4274c968fdb666572d42, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  oneShotTags: []
+  loseLifeTags:
+  - Ammo
+  nbLife: 20
+--- !u!114 &-7733537773067099323
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7795690005808854466}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c6a3fd4c34d65644889e0e0427004ac0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

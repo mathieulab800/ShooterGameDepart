@@ -4,11 +4,14 @@ using UnityEngine;
 
 public class AmmoManager : MonoBehaviour
 {
-    [SerializeField] GameObject ammoPrefab;
-    [SerializeField] int maxAmmos;
-    [SerializeField] int ammoSpeed;
-    [SerializeField] Transform ammoSpawn;
+    [SerializeField] private GameObject ammoPrefab;
+    [SerializeField] private int maxAmmos;
+    [SerializeField] private int ammoSpeed;
+    [SerializeField] private Transform ammoSpawn;
     private GameObject[] ammos;
+
+    private float shootCountdown = 0;
+    private float shootdelay = 0.1f;
 
     // Start is called before the first frame update
     void Start() 
@@ -25,8 +28,10 @@ public class AmmoManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetButtonDown("Fire1"))
+        shootCountdown -= Time.deltaTime;
+        if (Input.GetButton("Fire1")&& shootCountdown<=0)
         {
+            shootCountdown = shootdelay;
             GameObject ammoToShoot = null;
             bool ammoSelected = false;
             //Get first inactive ammo
@@ -46,6 +51,7 @@ public class AmmoManager : MonoBehaviour
                 Vector3 rotation = transform.rotation.eulerAngles;
                 ammoToShoot.transform.rotation = Quaternion.Euler(rotation.x, 0, rotation.z);
                 rigidBody.AddForce(transform.forward * ammoSpeed, ForceMode.Impulse);
+                ammoToShoot.GetComponent<AudioSource>().Play();
             }
         }
     }

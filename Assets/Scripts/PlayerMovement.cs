@@ -14,8 +14,8 @@ public class PlayerMovement : MonoBehaviour
     private float rotationSpeed;
 
     //On a très rarement une gravité réelle dans un jeu de plateforme, celle-ci donne un effet de "flottement"
-    private float gravity = 30f;//9.81f;
-    private float jumpSpeed = 12f;//6f;
+    private float gravity = 60f;//9.81f;
+    private float jumpSpeed = 40f;//6f;
     private float vecticalMovement = 0f;
 
     // Update is called once per frame
@@ -54,10 +54,10 @@ public class PlayerMovement : MonoBehaviour
 
             //SmoothDampAngle permet de faire un déplacement progressif entre l'angle actuel et l'angle visé.
             //Sans cette ligne de code, le pivot du personnage sera brutal.
-            //float angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetAngle, ref rotationSpeed, rotationTime);
+            float angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetAngle, ref rotationSpeed, rotationTime);
 
             //Quaternion.Euler permet de gérer correctement les rotaions en degrés malgré que l'on ai affaire à un quaternion.
-            transform.rotation = Quaternion.Euler(0f, targetAngle, 0f);
+            transform.rotation = Quaternion.Euler(0f, angle, 0f);
 
             //Si vous voulez que le personnage diminue de vitesse en saut.
             //Si on voudrait que le saut ne change pas de direction: garder le même vecteur en x et z qaund le joueur n'est pas grounded
