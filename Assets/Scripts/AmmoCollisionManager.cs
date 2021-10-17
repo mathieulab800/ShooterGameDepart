@@ -18,17 +18,10 @@ public class AmmoCollisionManager : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.name != "SpaceMarine")
+        
+        if (collision.gameObject.tag != "Player" && collision.gameObject.tag!= gameObject.tag)
         {
             gameObject.SetActive(false);
         }
     }
-
-    /*private void OnTriggerEnter(Collider other)
-    {
-        if (other.gameObject.name != "SpaceMarine")
-        {
-            gameObject.SetActive(false);
-        }
-    }*/
 }

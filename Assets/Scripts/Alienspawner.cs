@@ -12,6 +12,7 @@ public class Alienspawner : MonoBehaviour
     private GameObject[] aliens;
     private List<GameObject> spawners;
     [SerializeField] private GameManager gameManager;
+    [SerializeField] private BonusManager bonusManager;
 
     private float spawnTimer = 0;
     [SerializeField] private float spawnDelay = 5f;
@@ -27,8 +28,10 @@ public class Alienspawner : MonoBehaviour
 
             //Initialize alien
             Alien alienScript = alien.GetComponent<Alien>();
+            BonusSpawner bonusSpawner = alien.GetComponent<BonusSpawner>();
             alienScript.setTarget(player);
             alienScript.setGameManager(gameManager);
+            bonusSpawner.SetBonusManager(bonusManager);
             alien.SetActive(false);
 
             aliens.SetValue(alien, i);

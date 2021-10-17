@@ -10,7 +10,7 @@ public class Alien : MonoBehaviour
     [SerializeField] private GameObject target;
     private NavMeshAgent navMeshAgent;
     private bool spawning;
-    private float fallingSpeed =0.05f;
+    private float fallingSpeed =0.1f;
 
     private void OnEnable()
     {
@@ -33,19 +33,23 @@ public class Alien : MonoBehaviour
 
     void Update()
     {
+        if (navMeshAgent != null&&!spawning)
+        {
+            navMeshAgent.destination = target.transform.position;
+        }
+    }
+
+    private void FixedUpdate()
+    {
         if (spawning)
         {
-            transform.position += Vector3.down* fallingSpeed;
+            transform.position += Vector3.down * fallingSpeed;
             if (IsGrounded())
             {
                 spawning = false;
                 if (navMeshAgent != null)
                     navMeshAgent.enabled = true;
             }
-        }
-        else if (navMeshAgent != null)
-        {
-            navMeshAgent.destination = target.transform.position;
         }
     }
 

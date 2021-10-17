@@ -47,13 +47,16 @@ public class LifeCollisionManager : MonoBehaviour
 
     private void Deactivate()
     {
-        gameObject.SetActive(false);
-        //If has an audio source
-        if (audioSource != null)
+        if (gameObject != null)
         {
-            //Detach from parent before it dies
-            audioSource.gameObject.transform.parent = null;
-            audioSource.PlayOneShot(destroySound);
+            gameObject.SetActive(false);
+            //If has an audio source
+            if (audioSource != null&& destroySound!=null)
+            {
+                //Detach from parent before it dies
+                audioSource.gameObject.transform.parent = null;
+                audioSource.PlayOneShot(destroySound);
+            }
         }
     }
 
@@ -78,6 +81,15 @@ public class LifeCollisionManager : MonoBehaviour
             {
                 Deactivate();
             }
+        }
+    }
+
+    public void DealDamage(int damage)
+    {
+        nbLife -= damage;
+        if (nbLife <= 0)
+        {
+            Deactivate();
         }
     }
 }

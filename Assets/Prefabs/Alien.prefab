@@ -1138,6 +1138,7 @@ GameObject:
   - component: {fileID: -6072883278322112867}
   - component: {fileID: 4821197994622903651}
   - component: {fileID: 7467144750005985712}
+  - component: {fileID: 8330371589125815824}
   m_Layer: 0
   m_Name: Alien
   m_TagString: Enemy
@@ -1210,9 +1211,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 69111717589b1d540a4c492f6939dd98, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  death:
-    m_PersistentCalls:
-      m_Calls: []
+  gameManager: {fileID: 0}
   target: {fileID: 0}
 --- !u!114 &4821197994622903651
 MonoBehaviour:
@@ -1247,6 +1246,22 @@ CapsuleCollider:
   m_Height: 10
   m_Direction: 1
   m_Center: {x: 0, y: 5, z: 0}
+--- !u!114 &8330371589125815824
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1326983052875474}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e161627cdf6588b4bb0c2464a53e178a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  healthSpawnRate: 2.5
+  missileSpawnRate: 2.5
+  spreadSpawnRate: 2.5
+  noneSpawnRate: 92.5
 --- !u!1 &1344034646348482
 GameObject:
   m_ObjectHideFlags: 0
