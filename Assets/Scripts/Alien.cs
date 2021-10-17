@@ -6,7 +6,7 @@ using UnityEngine.Events;
 
 public class Alien : MonoBehaviour
 {
-    [SerializeField] private UnityEvent death;
+    [SerializeField] private GameManager gameManager;
     [SerializeField] private GameObject target;
     private NavMeshAgent navMeshAgent;
     private bool spawning;
@@ -22,7 +22,7 @@ public class Alien : MonoBehaviour
 
     private void OnDisable()
     {
-        death.Invoke();
+        gameManager.AlienKilled();
         if (navMeshAgent != null)
             navMeshAgent.enabled = false;
     }
@@ -54,9 +54,8 @@ public class Alien : MonoBehaviour
         this.target = target;
     }
 
-    public void AddDeathListener(UnityAction action)
+    public void setGameManager(GameManager gameManager)
     {
-        //Le souci, c'est qu'en ajoutant un listener, IL APPELLE LA FONCTION.
-        death.AddListener(action);
+        this.gameManager = gameManager;
     }
 }

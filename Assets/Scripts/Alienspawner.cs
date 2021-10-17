@@ -11,8 +11,6 @@ public class Alienspawner : MonoBehaviour
     [SerializeField] private GameObject player;
     private GameObject[] aliens;
     private List<GameObject> spawners;
-    [SerializeField] private UnityEvent allSpawnerDestroyed;
-    [SerializeField] private UnityEvent newAlien;
     [SerializeField] private GameManager gameManager;
 
     private float spawnTimer = 0;
@@ -23,18 +21,18 @@ public class Alienspawner : MonoBehaviour
     {
         spawners = getAllChildren();
         aliens = new GameObject[maxAliens];
-        UnityAction alienDeathListener = gameManager.AlienKilled;
         for (int i = 0; i < aliens.Length; i++)
         {
             GameObject alien = Instantiate(alienPrefab, new Vector3(0, 0, 0), Quaternion.identity);
+
+            //Initialize alien
+            Alien alienScript = alien.GetComponent<Alien>();
+            alienScript.setTarget(player);
+            alienScript.setGameManager(gameManager);
+            alien.SetActive(false);
+
             aliens.SetValue(alien, i);
-            aliens[i].GetComponent<Alien>().setTarget(player);
-            //Le souci, c'est qu'en ajoutant un listener, IL APPELLE LA FONCTION donc il fait --. Pour compenser je recall le ++ mais c'est chiant.
-            newAlien.Invoke();
-            aliens[i].GetComponent<Alien>().AddDeathListener(alienDeathListener);
-            aliens[i].GetComponent<Alien>();
-            aliens[i].SetActive(false);
-            
+            gameManager.NewAlien();
         }
     }
 
@@ -58,7 +56,7 @@ public class Alienspawner : MonoBehaviour
                     GameObject alien = getNextAlien();
                     if (alien != null)
                     {
-                        newAlien.Invoke();
+                        gameManager.NewAlien();
                         aliensLimit--;
                         alien.SetActive(true);
                         alien.transform.position = spawner.transform.position;
@@ -86,7 +84,7 @@ public class Alienspawner : MonoBehaviour
         spawners.Remove(spawner);
         if (spawners.Count == 0)
         {
-            allSpawnerDestroyed.Invoke();
+            gameManager.AllSpawnersDestroyed();
         }
     }
 

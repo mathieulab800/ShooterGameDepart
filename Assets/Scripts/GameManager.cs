@@ -56,7 +56,6 @@ public class GameManager : MonoBehaviour
     }
     public void AlienKilled()
     {
-        print(nbAliens);
         --nbAliens;
         CheckIfVictory();
     }
