@@ -2,10 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.Events;
 
 public class Alien : MonoBehaviour
 {
-
+    [SerializeField] private UnityEvent death;
     [SerializeField] private GameObject target;
     private NavMeshAgent navMeshAgent;
     private bool spawning;
@@ -21,6 +22,7 @@ public class Alien : MonoBehaviour
 
     private void OnDisable()
     {
+        death.Invoke();
         if (navMeshAgent != null)
             navMeshAgent.enabled = false;
     }
@@ -50,5 +52,11 @@ public class Alien : MonoBehaviour
     public void setTarget(GameObject target)
     {
         this.target = target;
+    }
+
+    public void AddDeathListener(UnityAction action)
+    {
+        //Le souci, c'est qu'en ajoutant un listener, IL APPELLE LA FONCTION.
+        death.AddListener(action);
     }
 }

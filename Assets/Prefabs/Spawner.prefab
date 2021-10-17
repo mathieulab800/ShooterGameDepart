@@ -112,7 +112,7 @@ MonoBehaviour:
   oneShotTags: []
   loseLifeTags:
   - Ammo
-  nbLife: 20
+  nbLife: 10
 --- !u!114 &-7733537773067099323
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class Alienspawner : MonoBehaviour
 {
@@ -10,6 +11,9 @@ public class Alienspawner : MonoBehaviour
     [SerializeField] private GameObject player;
     private GameObject[] aliens;
     private List<GameObject> spawners;
+    [SerializeField] private UnityEvent allSpawnerDestroyed;
+    [SerializeField] private UnityEvent newAlien;
+    [SerializeField] private GameManager gameManager;
 
     private float spawnTimer = 0;
     [SerializeField] private float spawnDelay = 5f;
@@ -19,12 +23,18 @@ public class Alienspawner : MonoBehaviour
     {
         spawners = getAllChildren();
         aliens = new GameObject[maxAliens];
+        UnityAction alienDeathListener = gameManager.AlienKilled;
         for (int i = 0; i < aliens.Length; i++)
         {
             GameObject alien = Instantiate(alienPrefab, new Vector3(0, 0, 0), Quaternion.identity);
             aliens.SetValue(alien, i);
             aliens[i].GetComponent<Alien>().setTarget(player);
+            //Le souci, c'est qu'en ajoutant un listener, IL APPELLE LA FONCTION donc il fait --. Pour compenser je recall le ++ mais c'est chiant.
+            newAlien.Invoke();
+            aliens[i].GetComponent<Alien>().AddDeathListener(alienDeathListener);
+            aliens[i].GetComponent<Alien>();
             aliens[i].SetActive(false);
+            
         }
     }
 
@@ -48,6 +58,7 @@ public class Alienspawner : MonoBehaviour
                     GameObject alien = getNextAlien();
                     if (alien != null)
                     {
+                        newAlien.Invoke();
                         aliensLimit--;
                         alien.SetActive(true);
                         alien.transform.position = spawner.transform.position;
@@ -73,6 +84,10 @@ public class Alienspawner : MonoBehaviour
     public void RemoveSpawner(GameObject spawner)
     {
         spawners.Remove(spawner);
+        if (spawners.Count == 0)
+        {
+            allSpawnerDestroyed.Invoke();
+        }
     }
 
     private List<GameObject> getAllChildren()
