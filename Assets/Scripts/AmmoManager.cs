@@ -29,7 +29,7 @@ public class AmmoManager : MonoBehaviour
     void Update()
     {
         shootCountdown -= Time.deltaTime;
-        if (Input.GetButton("Fire1")&& shootCountdown<=0)
+        if (Input.GetAxis("Fire1") > 0.5 && shootCountdown<=0)
         {
             shootCountdown = shootdelay;
             GameObject ammoToShoot = null;
