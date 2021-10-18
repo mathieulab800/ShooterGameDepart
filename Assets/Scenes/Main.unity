@@ -1794,7 +1794,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ammoPrefab: {fileID: 7584284895444664904, guid: 41e6071b450284c4c805372295656051,
     type: 3}
-  maxAmmos: 20
+  maxAmmos: 1000
   ammoSpeed: 120
   missilePrefab: {fileID: 2083575278889953497, guid: c56ff9c3562d49c4eaf87dd508b41dc4,
     type: 3}
